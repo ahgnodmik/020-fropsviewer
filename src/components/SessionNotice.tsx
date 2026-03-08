@@ -12,17 +12,16 @@ export function SessionNotice({ onDismiss }: SessionNoticeProps) {
     >
       <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl shadow-xl max-w-md w-full p-6">
         <h2 id="session-notice-title" className="text-lg font-semibold text-[var(--color-text)] mb-3">
-          안전한 PDF 보기
+          Safe PDF Viewing
         </h2>
         <p className="text-sm text-[var(--color-muted)] leading-relaxed mb-6">
-          업로드한 PDF는 <strong className="text-[var(--color-text)]">이 기기 메모리에서만</strong> 처리되며,
-          서버에 저장되지 않습니다. 탭이나 브라우저를 닫으면 파일은 자동으로 삭제됩니다.
+          Your PDF is processed <strong className="text-[var(--color-text)]">entirely in this browser</strong> and never sent to any server. The file is automatically removed when you close the tab.
         </p>
         <button
           onClick={onDismiss}
           className="w-full py-3 rounded-xl bg-[var(--color-accent)] text-white font-medium hover:bg-[var(--color-accent-hover)] transition-colors"
         >
-          확인
+          Got it
         </button>
       </div>
     </div>

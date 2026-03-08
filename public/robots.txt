@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ahgnodmik.github.io/020-fropsviewer/sitemap.xml

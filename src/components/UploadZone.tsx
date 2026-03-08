@@ -13,10 +13,10 @@ export function UploadZone({ onFileSelect }: UploadZoneProps) {
 
   const validate = useCallback((file: File): string | null => {
     if (file.type !== "application/pdf") {
-      return "PDF 파일만 업로드할 수 있습니다.";
+      return "Only PDF files are supported.";
     }
     if (file.size > MAX_BYTES) {
-      return `파일 크기는 ${MAX_SIZE_MB}MB 이하여야 합니다.`;
+      return `File size must be ${MAX_SIZE_MB}MB or less.`;
     }
     return null;
   }, []);
@@ -100,10 +100,10 @@ export function UploadZone({ onFileSelect }: UploadZoneProps) {
           />
         </svg>
         <p className="text-lg font-medium text-[var(--color-text)] mb-1">
-          PDF를 여기에 놓거나 클릭하여 선택
+          Drop your PDF here or click to select
         </p>
         <p className="text-sm text-[var(--color-muted)]">
-          최대 {MAX_SIZE_MB}MB · .pdf만 지원
+          Up to {MAX_SIZE_MB}MB · PDF only
         </p>
       </div>
       {error && (

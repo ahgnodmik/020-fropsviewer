@@ -27,13 +27,13 @@ function App() {
           <>
             <header className="flex-shrink-0 flex items-center justify-between px-4 py-3 border-b border-[var(--color-border)] bg-[var(--color-surface)]">
               <h1 className="text-lg font-semibold text-[var(--color-text)]">
-                PDF 뷰어
+                PDF Viewer
               </h1>
               <button
                 onClick={() => setDark((d) => !d)}
                 className="p-2 rounded-lg hover:bg-[var(--drop-zone-bg)] transition-colors"
-                title={dark ? "라이트 모드" : "다크 모드"}
-                aria-label={dark ? "라이트 모드로 전환" : "다크 모드로 전환"}
+                title={dark ? "Light mode" : "Dark mode"}
+                aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
               >
                 {dark ? (
                   <svg className="w-5 h-5 text-[var(--color-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">

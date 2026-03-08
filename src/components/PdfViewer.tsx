@@ -43,7 +43,7 @@ function PageModeViewer({
         renderTask.current = task;
         await task.promise;
       } catch {
-        // 취소 또는 렌더 오류 무시
+        // cancelled or render error — ignore
       }
     };
     render();
@@ -61,7 +61,7 @@ function PageModeViewer({
           onClick={goPrev}
           disabled={currentPage <= 1}
           className="p-2 rounded-lg hover:bg-[var(--drop-zone-bg)] disabled:opacity-40 disabled:pointer-events-none transition-colors"
-          title="이전 페이지"
+          title="Previous page"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -74,7 +74,7 @@ function PageModeViewer({
           onClick={goNext}
           disabled={currentPage >= numPages}
           className="p-2 rounded-lg hover:bg-[var(--drop-zone-bg)] disabled:opacity-40 disabled:pointer-events-none transition-colors"
-          title="다음 페이지"
+          title="Next page"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -142,7 +142,7 @@ function ScrollModeViewer({
         if (!ctx) return;
         await page.render({ canvasContext: ctx, canvas, viewport }).promise;
       } catch {
-        // 무시
+        // ignore
       }
     },
     [doc, scale]
@@ -226,7 +226,7 @@ export function PdfViewer({ file, onClose }: PdfViewerProps) {
         setDoc(loaded);
         setNumPages(loaded.numPages);
       } catch (e) {
-        if (!cancelled) setError(e instanceof Error ? e.message : "PDF 로드 실패");
+        if (!cancelled) setError(e instanceof Error ? e.message : "Failed to load PDF");
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -246,7 +246,7 @@ export function PdfViewer({ file, onClose }: PdfViewerProps) {
   if (loading) {
     return (
       <div className="flex-1 flex items-center justify-center bg-[var(--color-bg)] min-h-[200px]">
-        <div className="text-[var(--color-muted)]">PDF 불러오는 중...</div>
+        <div className="text-[var(--color-muted)]">Loading PDF...</div>
       </div>
     );
   }
@@ -254,8 +254,8 @@ export function PdfViewer({ file, onClose }: PdfViewerProps) {
   if (error || !doc) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center gap-4 p-4 bg-[var(--color-bg)] min-h-[200px]">
-        <p className="text-red-500">{error ?? "PDF 로드 실패"}</p>
-        <button onClick={onClose} className="px-4 py-2 rounded-lg bg-[var(--color-accent)] text-white font-medium">닫기</button>
+        <p className="text-red-500">{error ?? "Failed to load PDF"}</p>
+        <button onClick={onClose} className="px-4 py-2 rounded-lg bg-[var(--color-accent)] text-white font-medium">Close</button>
       </div>
     );
   }
@@ -264,9 +264,9 @@ export function PdfViewer({ file, onClose }: PdfViewerProps) {
     <div className="flex-1 flex flex-col min-h-0 bg-[var(--color-bg)]">
       {/* Toolbar */}
       <header className="flex-shrink-0 flex items-center justify-between gap-2 px-3 py-2 bg-[var(--color-surface)] border-b border-[var(--color-border)]">
-        {/* 왼쪽: 닫기 + 파일명 */}
+        {/* 왼쪽: Close + 파일명 */}
         <div className="flex items-center gap-2 min-w-0">
-          <button onClick={onClose} className="p-2 rounded-lg hover:bg-[var(--drop-zone-bg)] transition-colors flex-shrink-0" title="닫기">
+          <button onClick={onClose} className="p-2 rounded-lg hover:bg-[var(--drop-zone-bg)] transition-colors flex-shrink-0" title="Close">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -282,7 +282,7 @@ export function PdfViewer({ file, onClose }: PdfViewerProps) {
           <div className="flex items-center rounded-lg border border-[var(--color-border)] overflow-hidden">
             <button
               onClick={() => setViewMode("page")}
-              title="페이지 보기"
+              title="Page view"
               className={`p-2 transition-colors ${viewMode === "page" ? "bg-[var(--color-accent)] text-white" : "hover:bg-[var(--drop-zone-bg)] text-[var(--color-muted)]"}`}
             >
               {/* 페이지 아이콘 */}
@@ -292,7 +292,7 @@ export function PdfViewer({ file, onClose }: PdfViewerProps) {
             </button>
             <button
               onClick={() => setViewMode("scroll")}
-              title="스크롤 보기"
+              title="Scroll view"
               className={`p-2 transition-colors ${viewMode === "scroll" ? "bg-[var(--color-accent)] text-white" : "hover:bg-[var(--drop-zone-bg)] text-[var(--color-muted)]"}`}
             >
               {/* 스크롤 아이콘 */}
@@ -304,8 +304,8 @@ export function PdfViewer({ file, onClose }: PdfViewerProps) {
 
           <div className="w-px h-6 bg-[var(--color-border)]" />
 
-          {/* 축소 / 배율 / 확대 */}
-          <button onClick={zoomOut} className="p-2 rounded-lg hover:bg-[var(--drop-zone-bg)] transition-colors" title="축소">
+          {/* Zoom out / 배율 / Zoom in */}
+          <button onClick={zoomOut} className="p-2 rounded-lg hover:bg-[var(--drop-zone-bg)] transition-colors" title="Zoom out">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
             </svg>
@@ -313,7 +313,7 @@ export function PdfViewer({ file, onClose }: PdfViewerProps) {
           <span className="text-xs text-[var(--color-muted)] min-w-[2.5rem] text-center hidden sm:inline">
             {Math.round(scale * 100)}%
           </span>
-          <button onClick={zoomIn} className="p-2 rounded-lg hover:bg-[var(--drop-zone-bg)] transition-colors" title="확대">
+          <button onClick={zoomIn} className="p-2 rounded-lg hover:bg-[var(--drop-zone-bg)] transition-colors" title="Zoom in">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>

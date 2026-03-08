@@ -7,15 +7,15 @@ import { DataPolicy } from "./docs/DataPolicy";
 type DocKey = "how-to-use" | "privacy" | "data-policy" | null;
 
 const LINKS: { label: string; key: DocKey }[] = [
-  { label: "사용 방법", key: "how-to-use" },
-  { label: "개인정보 처리방침", key: "privacy" },
-  { label: "자료 보관 정책", key: "data-policy" },
+  { label: "How to Use", key: "how-to-use" },
+  { label: "Privacy Policy", key: "privacy" },
+  { label: "Data Policy", key: "data-policy" },
 ];
 
 const DOC_TITLE: Record<NonNullable<DocKey>, string> = {
-  "how-to-use": "사용 방법",
-  privacy: "개인정보 처리방침",
-  "data-policy": "자료 보관 정책",
+  "how-to-use": "How to Use",
+  privacy: "Privacy Policy",
+  "data-policy": "Data Policy",
 };
 
 function DocContent({ docKey }: { docKey: NonNullable<DocKey> }) {
@@ -41,7 +41,7 @@ export function Footer() {
             </button>
           ))}
           <span className="text-xs text-[var(--color-muted)]">
-            © {new Date().getFullYear()} PDF 뷰어
+            © {new Date().getFullYear()} PDF Viewer Online
           </span>
         </div>
       </footer>

@@ -1,0 +1,13 @@
+{
+  "name": "PDF Viewer Online",
+  "short_name": "PDF Viewer",
+  "description": "Free online PDF viewer. Browser-only, no server upload.",
+  "start_url": "/020-fropsviewer/",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#2563eb",
+  "icons": [
+    { "src": "/020-fropsviewer/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/020-fropsviewer/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
