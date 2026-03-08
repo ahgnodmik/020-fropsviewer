@@ -1,6 +1,4 @@
 import { GlobalWorkerOptions } from "pdfjs-dist";
 
-// Worker from public folder so it's served as static asset
-const origin =
-  typeof window !== "undefined" ? window.location.origin : "";
-GlobalWorkerOptions.workerSrc = `${origin}/pdf.worker.min.mjs`;
+// Use Vite's BASE_URL so the path is correct in both dev (/) and production (/020-fropsviewer/)
+GlobalWorkerOptions.workerSrc = `${import.meta.env.BASE_URL}pdf.worker.min.mjs`;
