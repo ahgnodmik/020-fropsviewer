@@ -1,0 +1,36 @@
+/**
+ * Google AdSense 광고 슬롯 (승인 전: 공백 플레이스홀더)
+ * 승인 후: index.html 또는 이 컴포넌트에 스크립트 삽입으로 활성화
+ *
+ * - PC: 좌우 사이드바 300×250
+ * - 모바일: 하단 고정 320×50
+ */
+
+type AdSlotProps = {
+  variant: "sidebar" | "mobile-bottom";
+  className?: string;
+};
+
+const SIZES = {
+  sidebar: { width: 300, height: 250 },
+  "mobile-bottom": { width: 320, height: 50 },
+} as const;
+
+export function AdSlot({ variant, className = "" }: AdSlotProps) {
+  const { width, height } = SIZES[variant];
+
+  return (
+    <div
+      className={`bg-[var(--drop-zone-bg)] border border-[var(--color-border)] flex items-center justify-center ${className}`}
+      style={{ width, height, minWidth: width, minHeight: height }}
+      data-ad-slot={variant}
+      data-ad-format={variant === "sidebar" ? "rectangle" : "horizontal"}
+      aria-label="광고 영역"
+    >
+      {/* 승인 전 공백 처리. 승인 후 예시:
+          <ins className="adsbygoogle" data-ad-client="ca-pub-xxx" data-ad-slot="xxx" ... />
+          (script는 index.html 또는 별도 로드)
+      */}
+    </div>
+  );
+}
