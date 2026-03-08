@@ -27,10 +27,7 @@ export function AdSlot({ variant, className = "" }: AdSlotProps) {
       data-ad-format={variant === "sidebar" ? "rectangle" : "horizontal"}
       aria-label="광고 영역"
     >
-      {/* 승인 전 공백 처리. 승인 후 예시:
-          <ins className="adsbygoogle" data-ad-client="ca-pub-xxx" data-ad-slot="xxx" ... />
-          (script는 index.html 또는 별도 로드)
-      */}
+      <span className="text-xs text-[var(--color-muted)] select-none">광고</span>
     </div>
   );
 }
