@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Browser window -->
+  <rect x="6" y="6" width="88" height="88" rx="8" ry="8" stroke="#1a1a1a" stroke-width="4.5"/>
+  <!-- Title bar separator -->
+  <line x1="6" y1="24" x2="94" y2="24" stroke="#1a1a1a" stroke-width="4.5"/>
+  <!-- Three dots -->
+  <circle cx="19" cy="15" r="3" fill="#1a1a1a" stroke="none"/>
+  <circle cx="30" cy="15" r="3" fill="#1a1a1a" stroke="none"/>
+  <circle cx="41" cy="15" r="3" fill="#1a1a1a" stroke="none"/>
+  <!-- PDF document icon (centered in window body) -->
+  <!-- Document body -->
+  <path d="M34 35 L34 78 L66 78 L66 46 L55 35 Z" stroke="#1a1a1a" stroke-width="4" fill="white"/>
+  <!-- Folded corner -->
+  <polyline points="55,35 55,46 66,46" stroke="#1a1a1a" stroke-width="4" fill="none"/>
+  <!-- PDF text -->
+  <text x="50" y="67" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="14" fill="#1a1a1a" stroke="none">PDF</text>
+</svg>
