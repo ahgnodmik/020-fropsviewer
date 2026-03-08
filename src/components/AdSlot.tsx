@@ -2,8 +2,8 @@
  * Google AdSense 광고 슬롯 (승인 전: 공백 플레이스홀더)
  * 승인 후: index.html 또는 이 컴포넌트에 스크립트 삽입으로 활성화
  *
- * - PC: 좌우 사이드바 300×250
- * - 모바일: 하단 고정 320×50
+ * - PC: 좌우 사이드바 300×600 (하프페이지 배너)
+ * - 모바일: 하단 고정 320×100 (대형 모바일 배너)
  */
 
 type AdSlotProps = {
@@ -12,8 +12,8 @@ type AdSlotProps = {
 };
 
 const SIZES = {
-  sidebar: { width: 300, height: 250 },
-  "mobile-bottom": { width: 320, height: 50 },
+  sidebar: { width: 300, height: 600 },
+  "mobile-bottom": { width: 320, height: 100 },
 } as const;
 
 export function AdSlot({ variant, className = "" }: AdSlotProps) {
