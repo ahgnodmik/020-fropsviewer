@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { AdSlot } from "./AdSlot";
+import { Footer } from "./Footer";
 
 type AppLayoutProps = {
   children: ReactNode;
@@ -22,11 +23,12 @@ export function AppLayout({ children, fullHeight }: AppLayoutProps) {
         </div>
       </aside>
 
-      {/* 중앙: 툴바 + 콘텐츠. 모바일에서 하단 고정 광고 높이만큼 padding */}
+      {/* 중앙: 툴바 + 콘텐츠 + 푸터. 모바일에서 하단 고정 광고 높이만큼 padding */}
       <main
         className={`flex-1 flex flex-col min-w-0 pb-[58px] md:pb-0 ${fullHeight ? "h-screen md:h-auto md:min-h-screen" : ""}`}
       >
-        {children}
+        <div className="flex-1 flex flex-col">{children}</div>
+        {!fullHeight && <Footer />}
       </main>
 
       {/* PC: 우 사이드바 */}
