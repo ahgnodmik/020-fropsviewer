@@ -9,38 +9,33 @@ type AppLayoutProps = {
 };
 
 /**
- * PC: 좌우 사이드바(300×600) + 중앙 콘텐츠
+ * PC: 좌우 사이드바(300×600) — position:fixed 오버레이, 스크롤과 무관하게 항상 고정
  * 모바일: 콘텐츠 + 하단 고정 배너(320×100)
- * 뷰어 영역 내부에는 광고 없음(콘텐츠만 중앙)
+ * 중앙 콘텐츠: md 이상에서 양쪽 316px 패딩으로 광고 영역 침범 없이 중앙 정렬
  */
 export function AppLayout({ children, fullHeight }: AppLayoutProps) {
   return (
-    /* fullHeight(뷰어) 모드: 전체를 h-screen으로 고정 → 페이지 레벨 스크롤 없음 */
-    <div className={`flex flex-col md:flex-row bg-[var(--color-bg)] ${fullHeight ? "h-screen overflow-hidden" : "min-h-screen"}`}>
+    <div className={`bg-[var(--color-bg)] ${fullHeight ? "h-screen overflow-hidden" : "min-h-screen"}`}>
 
-      {/* PC: 좌 사이드바 — fullHeight 시 h-screen으로 고정되어 항상 보임 */}
-      <aside className={`hidden md:flex flex-shrink-0 w-[316px] justify-center py-6 px-2 border-r border-[var(--color-border)] bg-[var(--color-surface)] ${fullHeight ? "h-screen overflow-hidden" : ""}`}>
-        <div className="sticky top-6">
-          {/* slotId: AdSense 콘솔 > 광고 단위 > 디스플레이 광고 생성 후 ID 입력 */}
-          <AdSlot variant="sidebar" slotId={undefined} />
-        </div>
+      {/* PC: 좌 사이드바 — position:fixed, 스크롤 무관하게 항상 고정 */}
+      <aside className="hidden md:flex fixed top-0 left-0 h-screen w-[316px] z-20 justify-center items-start py-6 px-2 border-r border-[var(--color-border)] bg-[var(--color-surface)]">
+        {/* slotId: AdSense 콘솔 > 광고 단위 > 디스플레이 광고 생성 후 ID 입력 */}
+        <AdSlot variant="sidebar" slotId={undefined} />
       </aside>
 
-      {/* 중앙: 툴바 + 콘텐츠 + 푸터 */}
+      {/* PC: 우 사이드바 — position:fixed, 스크롤 무관하게 항상 고정 */}
+      <aside className="hidden md:flex fixed top-0 right-0 h-screen w-[316px] z-20 justify-center items-start py-6 px-2 border-l border-[var(--color-border)] bg-[var(--color-surface)]">
+        {/* slotId: AdSense 콘솔 > 광고 단위 > 디스플레이 광고 생성 후 ID 입력 */}
+        <AdSlot variant="sidebar" slotId={undefined} />
+      </aside>
+
+      {/* 중앙: 툴바 + 콘텐츠 + 푸터 — md 이상에서 양쪽 316px 여백으로 광고 영역 회피 */}
       <main
-        className={`flex-1 flex flex-col min-w-0 min-h-0 ${fullHeight ? "h-screen overflow-hidden" : "pb-[116px] md:pb-0"}`}
+        className={`flex flex-col min-w-0 md:ml-[316px] md:mr-[316px] ${fullHeight ? "h-screen overflow-hidden" : "min-h-screen pb-[116px] md:pb-0"}`}
       >
-        <div className="flex-1 flex flex-col min-h-0">{children}</div>
+        <div className={`flex-1 flex flex-col ${fullHeight ? "min-h-0 overflow-hidden" : ""}`}>{children}</div>
         {!fullHeight && <Footer />}
       </main>
-
-      {/* PC: 우 사이드바 */}
-      <aside className={`hidden md:flex flex-shrink-0 w-[316px] justify-center py-6 px-2 border-l border-[var(--color-border)] bg-[var(--color-surface)] ${fullHeight ? "h-screen overflow-hidden" : ""}`}>
-        <div className="sticky top-6">
-          {/* slotId: AdSense 콘솔 > 광고 단위 > 디스플레이 광고 생성 후 ID 입력 */}
-          <AdSlot variant="sidebar" slotId={undefined} />
-        </div>
-      </aside>
 
       {/* 모바일: 하단 고정 배너 — fixed이므로 항상 보임 */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-10 flex justify-center py-2 px-2 bg-[var(--color-surface)] border-t border-[var(--color-border)]">
