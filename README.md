@@ -17,7 +17,7 @@
 - React, TypeScript, Vite
 - Tailwind CSS
 - PDF.js (Mozilla)
-- 배포: Vercel (클라이언트 전용)
+- 배포: GitHub Pages (또는 Vercel)
 
 ## 로컬 실행
 
@@ -33,9 +33,13 @@ npm run build
 npm run preview
 ```
 
-## 배포 (Vercel)
+## 배포 (GitHub Pages)
 
-프로젝트를 Vercel에 연결한 뒤 배포하면 됩니다. 별도 서버/API 없이 정적 빌드로 동작합니다.
+1. **한 번만 설정**: 저장소 **Settings → Pages** 에서 **Build and deployment → Source** 를 **GitHub Actions** 로 선택합니다.
+2. `main` 브랜치에 푸시하면 자동으로 빌드·배포됩니다.
+3. 배포된 주소: `https://<사용자명>.github.io/020-fropsviewer/`
+
+(Vercel 등 다른 호스팅을 쓰려면 `vite.config.ts`의 `base`를 `/`로 바꾸면 됩니다.)
 
 ## 광고 (Google AdSense)
 
