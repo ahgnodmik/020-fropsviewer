@@ -19,7 +19,8 @@ export function AppLayout({ children, fullHeight }: AppLayoutProps) {
       {/* PC: 좌 사이드바 (md 이상에서만) */}
       <aside className="hidden md:flex flex-shrink-0 w-[316px] justify-center py-6 px-2 border-r border-[var(--color-border)] bg-[var(--color-surface)]">
         <div className="sticky top-6">
-          <AdSlot variant="sidebar" />
+          {/* slotId: AdSense 콘솔 > 광고 단위 > 디스플레이 광고 생성 후 ID 입력 */}
+          <AdSlot variant="sidebar" slotId={undefined} />
         </div>
       </aside>
 
@@ -34,13 +35,15 @@ export function AppLayout({ children, fullHeight }: AppLayoutProps) {
       {/* PC: 우 사이드바 */}
       <aside className="hidden md:flex flex-shrink-0 w-[316px] justify-center py-6 px-2 border-l border-[var(--color-border)] bg-[var(--color-surface)]">
         <div className="sticky top-6">
-          <AdSlot variant="sidebar" />
+          {/* slotId: AdSense 콘솔 > 광고 단위 > 디스플레이 광고 생성 후 ID 입력 */}
+          <AdSlot variant="sidebar" slotId={undefined} />
         </div>
       </aside>
 
       {/* 모바일: 하단 고정 배너 (320×100) */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-10 flex justify-center py-2 px-2 bg-[var(--color-surface)] border-t border-[var(--color-border)]">
-        <AdSlot variant="mobile-bottom" />
+        {/* slotId: AdSense 콘솔 > 광고 단위 > 인피드 광고(가로형) 생성 후 ID 입력 */}
+        <AdSlot variant="mobile-bottom" slotId={undefined} />
       </div>
     </div>
   );
