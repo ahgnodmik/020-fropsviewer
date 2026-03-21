@@ -32,7 +32,6 @@ const AD_CLIENT = "ca-pub-8527804772343765";
 
 export function AdSlot({ variant, slotId, className = "" }: AdSlotProps) {
   const { width, height, format } = SIZES[variant];
-  const insRef = useRef<HTMLModElement>(null);
   const pushed = useRef(false);
 
   useEffect(() => {
@@ -60,7 +59,6 @@ export function AdSlot({ variant, slotId, className = "" }: AdSlotProps) {
 
   return (
     <ins
-      ref={insRef}
       className={`adsbygoogle ${className}`}
       style={{ display: "block", width, height, minWidth: width, minHeight: height }}
       data-ad-client={AD_CLIENT}

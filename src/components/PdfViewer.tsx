@@ -47,7 +47,10 @@ function PageModeViewer({
       }
     };
     render();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+      renderTask.current?.cancel();
+    };
   }, [doc, currentPage, scale]);
 
   const goPrev = () => setCurrentPage((p) => Math.max(1, p - 1));
@@ -103,6 +106,7 @@ function ScrollModeViewer({
   scale: number;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const canvasMapRef = useRef<Map<number, HTMLCanvasElement>>(new Map());
   const [currentPage, setCurrentPage] = useState(1);
 
   // 드래그 스크롤
@@ -147,6 +151,14 @@ function ScrollModeViewer({
     },
     [doc, scale]
   );
+
+  // doc/scale 변경 시 모든 캔버스 렌더 (currentPage 변경에는 반응 안 함)
+  useEffect(() => {
+    for (let p = 1; p <= numPages; p++) {
+      const canvas = canvasMapRef.current.get(p);
+      if (canvas) renderCanvas(canvas, p);
+    }
+  }, [numPages, renderCanvas]);
 
   // IntersectionObserver로 현재 페이지 감지
   useEffect(() => {
@@ -193,7 +205,10 @@ function ScrollModeViewer({
             key={pageNum}
             data-page={pageNum}
             className="shadow-lg flex-shrink-0"
-            ref={(el) => { if (el) renderCanvas(el, pageNum); }}
+            ref={(el) => {
+              if (el) canvasMapRef.current.set(pageNum, el);
+              else canvasMapRef.current.delete(pageNum);
+            }}
           />
         ))}
       </div>
@@ -305,7 +320,12 @@ export function PdfViewer({ file, onClose }: PdfViewerProps) {
           <div className="w-px h-6 bg-[var(--color-border)]" />
 
           {/* Zoom out / 배율 / Zoom in */}
-          <button onClick={zoomOut} className="p-2 rounded-lg hover:bg-[var(--drop-zone-bg)] transition-colors" title="Zoom out">
+          <button
+            onClick={zoomOut}
+            disabled={scale <= 0.5}
+            className="p-2 rounded-lg hover:bg-[var(--drop-zone-bg)] disabled:opacity-40 disabled:pointer-events-none transition-colors"
+            title="Zoom out"
+          >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
             </svg>
@@ -313,7 +333,12 @@ export function PdfViewer({ file, onClose }: PdfViewerProps) {
           <span className="text-xs text-[var(--color-muted)] min-w-[2.5rem] text-center hidden sm:inline">
             {Math.round(scale * 100)}%
           </span>
-          <button onClick={zoomIn} className="p-2 rounded-lg hover:bg-[var(--drop-zone-bg)] transition-colors" title="Zoom in">
+          <button
+            onClick={zoomIn}
+            disabled={scale >= 3}
+            className="p-2 rounded-lg hover:bg-[var(--drop-zone-bg)] disabled:opacity-40 disabled:pointer-events-none transition-colors"
+            title="Zoom in"
+          >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
